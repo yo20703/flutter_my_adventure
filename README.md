@@ -1,16 +1,29 @@
 # flutter_my_adventure
+#主要是文字冒險遊戲，以**我的桐人**為範本 https://mykirito.com/
 
-A new Flutter project.
+我的桐人特性:
+* 一直轉生的遊戲，死亡時可以轉生，選擇目前可以使用的角色
 
-## Getting Started
+* 練級、挑戰敵人時列出list打贏增加經驗值
 
-This project is a starting point for a Flutter application.
+* 獲得角色的方式
+   * 選項會影響獲得甚麼角色
 
-A few resources to get you started if this is your first Flutter project:
+* 對戰方式
+   * 完全文字，使用者的選擇只有挑戰誰，對戰的內容系統會自己計算
+   
+本遊戲走向:
+* 及時對戰，攻擊回合
+  * 半回合制
+  * 血量條
+  * 攻擊蓄力條(攻速會影響)
+  * 魔量條(回魔能力值會影響)
+  * 暫定2個技能(需耗魔)
+* 能力值(楓之谷類型)，升等可以點
+* 一層一層闖關
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+分工:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+yo20703@gmail.com :  前端呈現
+
+br851213@gmail.com : 後端資料庫(MySQL)
