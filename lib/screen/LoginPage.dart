@@ -116,21 +116,24 @@ class LoginPage extends StatelessWidget {
           );
         });
     if (registerMode != null) {
-      registerMode == tourist ? selectTourist(context) : print("會員註冊");
+      registerMode == tourist ? selectTourist(context) : selectMember(context);
     }
   }
 
+  //uid 0開頭為遊客,1是會員
   Future<void> selectTourist(context) async {
     //todo api
-    RegisterData registerData = RegisterData.onlyStatus('Tourist');
+    RegisterData registerData =
+        RegisterData.onlyStatusAndNickName('Tourist', 'aaa');
     String registerDataToJson = registerData.json();
     Response response;
     var dio = Dio();
     response = await dio.post("http://13.112.99.27/api/register.php",
         data: registerDataToJson);
-    print('$registerDataToJson');
-    print(response);
-    int i = await showDialog<int>(
+    print(registerDataToJson);
+    print('response : $response');
+
+    await showDialog<int>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -142,8 +145,30 @@ class LoginPage extends StatelessWidget {
             ],
           );
         });
-    if (i != null) {
-      print("选择了：${i == 1 ? "遊客登入" : "會員註冊"}");
-    }
+  }
+
+  Future<void> selectMember(context) async {
+    //todo api
+    RegisterData registerData = RegisterData('Member', 'ABCC', 'efg', 'ads');
+    String registerDataToJson = registerData.json();
+    Response response;
+    var dio = Dio();
+    response = await dio.post("http://13.112.99.27/api/register.php",
+        data: registerDataToJson);
+    print(registerDataToJson);
+    print('response : $response');
+
+    await showDialog<int>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text('成功'),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('確定'))
+            ],
+          );
+        });
   }
 }

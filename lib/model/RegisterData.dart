@@ -12,7 +12,7 @@ class RegisterData {
 
   RegisterData(this.status, this.account, this.password, this.nickname);
 
-  RegisterData.onlyStatus(this.status);
+  RegisterData.onlyStatusAndNickName(this.status, this.nickname);
 
   String json() {
     return jsonEncode({

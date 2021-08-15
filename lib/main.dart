@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'screen/LoginPage.dart';
 
-//http://13.112.99.27/
 void main() {
   runApp(MyApp());
 }
