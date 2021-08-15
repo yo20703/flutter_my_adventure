@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_my_adventure/model/RegisterData.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -44,21 +46,30 @@ class LoginPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
+                selectRegister(context);
               },
+              child: Text(
+                'Register',
+                style: TextStyle(color: Colors.blue, fontSize: 15),
+              ),
+              autofocus: false,
+              clipBehavior: Clip.none,
+            ),
+            TextButton(
               child: Text(
                 'Forgot Password',
                 style: TextStyle(color: Colors.blue, fontSize: 15),
               ),
               autofocus: false,
               clipBehavior: Clip.none,
+              onPressed: () {},
             ),
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: FlatButton(
+              child: TextButton(
                 onPressed: () {
                   //todo Navigator to Page
                 },
@@ -72,5 +83,67 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> selectRegister(context) async {
+    final int tourist = 1;
+    final int member = 2;
+    int registerMode = await showDialog<int>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('請選擇註冊方式'),
+            children: <Widget>[
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, tourist);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: const Text('遊客登入'),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, member);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: const Text('會員註冊'),
+                ),
+              ),
+            ],
+          );
+        });
+    if (registerMode != null) {
+      registerMode == tourist ? selectTourist(context) : print("會員註冊");
+    }
+  }
+
+  Future<void> selectTourist(context) async {
+    //todo api
+    RegisterData registerData = RegisterData.onlyStatus('Tourist');
+    String registerDataToJson = registerData.json();
+    Response response;
+    var dio = Dio();
+    response = await dio.post("http://13.112.99.27/api/register.php",
+        data: registerDataToJson);
+    print('$registerDataToJson');
+    print(response);
+    int i = await showDialog<int>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text('成功'),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('確定'))
+            ],
+          );
+        });
+    if (i != null) {
+      print("选择了：${i == 1 ? "遊客登入" : "會員註冊"}");
+    }
   }
 }

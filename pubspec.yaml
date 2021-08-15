@@ -16,10 +16,31 @@ dependencies:
   cupertino_icons: ^1.0.0
   dio: ^4.0.0
   mysql1: ^0.19.2
+  json_annotation: ^3.0.0
 dev_dependencies:
+  build_runner: ^1.0.0
+  json_serializable: ^3.2.0
   flutter_test:
     sdk: flutter
-
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # Options configure how source code is generated for every
+          # `@JsonSerializable`-annotated class in the package.
+          #
+          # The default value for each is listed.
+          any_map: false
+          checked: false
+          create_factory: true
+          create_to_json: true
+          disallow_unrecognized_keys: false
+          explicit_to_json: false
+          field_rename: none
+          generic_argument_factories: false
+          ignore_unannotated: false
+          include_if_null: true
 flutter:
 
   uses-material-design: true
